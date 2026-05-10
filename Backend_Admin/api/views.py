@@ -89,13 +89,18 @@ def cambiar_estado(request, id_producto):
     try:
         body = json.loads(request.body)
         nuevo_estado = body.get("disponible") # Esperamos un true o false
+        
+        print(f"DEBUG: Cambiando estado de producto {id_producto} a {nuevo_estado}")
 
         # Actualizamos en Supabase donde el idproducto coincida
         data = supabase.table("producto").update({"disponible": nuevo_estado}).eq("idproducto", id_producto).execute()
         
+        print(f"DEBUG: Respuesta Supabase: {data.data}")
+        
         return JsonResponse(data.data, safe=False)
 
     except Exception as e:
+        print(f"DEBUG: Error en cambiar_estado: {str(e)}")
         return JsonResponse({"error": str(e)}, status=400)
 # ============================
 # ============================
