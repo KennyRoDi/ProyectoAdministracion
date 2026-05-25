@@ -1,35 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.jsx
+import { Routes, Route } from 'react-router-dom';
+import './App.css';
+import LandingPage from './pages/Landing';
+import AboutPage from './pages/About';
+import CalendarPage from './pages/Calendar';
+import MenuPage from './pages/Menu';
+import ShoppingPage from './pages/Shopping';
+import CheckoutPage from './pages/Checkout';
+import AdminPage from './pages/Admin';
+import LoginPage from './pages/Login';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/about" element={<AboutPage />} />
+      <Route path="/calendar" element={<CalendarPage />} />
+      <Route path="/menu" element={<MenuPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route 
+        path="/shopping" 
+        element={
+          <ProtectedRoute>
+            <ShoppingPage />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/checkout" 
+        element={
+          <ProtectedRoute>
+            <CheckoutPage />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/admin" 
+        element={
+          <ProtectedRoute adminOnly>
+            <AdminPage />
+          </ProtectedRoute>
+        } 
+      />
+    </Routes>
+  );
 }
 
-export default App
+export default App;
