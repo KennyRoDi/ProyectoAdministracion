@@ -24,6 +24,7 @@ temp/
 *.md
 !README.md
 !GEMINI.md
+!EJECUTAR.md
 
 # Python
 __pycache__/
